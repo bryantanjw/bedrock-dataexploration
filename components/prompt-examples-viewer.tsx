@@ -36,7 +36,7 @@ export function PromptExamplesViewer() {
         <Accordion type="single" collapsible className="w-full">
           {examplePrompt.map((item, index) => (
             <>
-              <AccordionItem value={item.value}>
+              <AccordionItem key={index} value={item.value}>
                 <AccordionTrigger>
                   <div className="flex gap-5">
                     <span>{item.title}</span>
@@ -58,8 +58,8 @@ export function PromptExamplesViewer() {
                     </span>
                     <div className="rounded-md bg-muted p-6">
                       <code className="grid gap-2 text-sm text-slate-800 [&_span]:h-4">
-                        {item.prompts.map((example) => (
-                          <span>{example}</span>
+                        {item.prompts.map((example, index) => (
+                          <span key={index}>{example}</span>
                         ))}
                       </code>
                     </div>

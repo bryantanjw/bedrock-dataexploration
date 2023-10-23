@@ -56,8 +56,8 @@ export function DatabaseSelector({ form, ...props }: DatabaseSelectorProps) {
         <Command>
           <CommandInput placeholder="Search databases..." />
           <CommandEmpty>No databases found.</CommandEmpty>
-          {databases.map((database) => (
-            <CommandGroup heading={database.service}>
+          {databases.map((database, index) => (
+            <CommandGroup key={index} heading={database.service}>
               <CommandItem
                 key={database.name}
                 onSelect={() => handleDatabaseSelect(database)}
