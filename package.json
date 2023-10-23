@@ -9,6 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-athena": "^3.428.0",
+    "@aws-sdk/client-bedrock-runtime": "^3.431.0",
+    "@aws-sdk/client-dynamodb": "^3.428.0",
+    "@aws-sdk/client-secrets-manager": "^3.433.0",
+    "@aws-sdk/lib-dynamodb": "^3.428.0",
+    "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-alert-dialog": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.4",
@@ -23,23 +29,36 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
-    "@radix-ui/react-toast": "^1.1.4",
+    "@radix-ui/react-toast": "^1.1.5",
+    "@tanstack/react-table": "^8.10.7",
     "@types/node": "20.5.9",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "aws-crt": "^1.18.1",
+    "bufferutil": "^4.0.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "gremlin": "^3.7.0",
     "next": "13.4.19",
+    "pg": "^8.11.3",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.47.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "utf-8-validate": "^5.0.10",
+    "ws": "^8.14.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/gremlin": "^3.6.5",
+    "@types/pg": "^8.10.7"
   }
 }

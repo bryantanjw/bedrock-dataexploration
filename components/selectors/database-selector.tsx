@@ -1,6 +1,8 @@
 "use client";
 
+import { UseFormReturn } from "react-hook-form";
 import * as React from "react";
+import * as z from "zod";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { PopoverProps } from "@radix-ui/react-popover";
 
@@ -19,18 +21,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { Database } from "../data/databases";
+import { Database, databases } from "../../data/databases";
+import { formSchema } from "@/lib/form-schema";
 
 interface DatabaseSelectorProps extends PopoverProps {
-  databases: Database[];
+  form: UseFormReturn<z.infer<typeof formSchema>>;
 }
 
-export function DatabaseSelector({
-  databases,
-  ...props
-}: DatabaseSelectorProps) {
+export function DatabaseSelector({ form, ...props }: DatabaseSelectorProps) {
   const [open, setOpen] = React.useState(false);
   const [selectedDatabase, setselectedDatabase] = React.useState<Database>();
+
+  const handleDatabaseSelect = (database: Database) => {
+    setselectedDatabase(database);
+    form.setValue("database", database.id);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
@@ -53,11 +59,8 @@ export function DatabaseSelector({
           {databases.map((database) => (
             <CommandGroup heading={database.service}>
               <CommandItem
-                key={database.id}
-                onSelect={() => {
-                  setselectedDatabase(database);
-                  setOpen(false);
-                }}
+                key={database.name}
+                onSelect={() => handleDatabaseSelect(database)}
               >
                 {database.name}
                 <CheckIcon

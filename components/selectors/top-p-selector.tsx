@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { SliderProps } from "@radix-ui/react-slider";
+import * as z from "zod";
+import { UseFormReturn } from "react-hook-form";
 
 import {
   HoverCard,
@@ -10,13 +11,14 @@ import {
 } from "@/components/ui/hover-card";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
+import { useSliderChange } from "@/hooks/use-slider-change";
+import { formSchema } from "@/lib/form-schema";
 
 interface TopPSelectorProps {
-  defaultValue: SliderProps["defaultValue"];
+  form: UseFormReturn<z.infer<typeof formSchema>>;
 }
-
-export function TopPSelector({ defaultValue }: TopPSelectorProps) {
-  const [value, setValue] = React.useState(defaultValue);
+export function TopPSelector({ form }: TopPSelectorProps) {
+  const { value, handleSliderChange } = useSliderChange(form, "top_p");
 
   return (
     <div className="grid gap-2 pt-2">
@@ -32,9 +34,9 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
             <Slider
               id="top-p"
               max={1}
-              defaultValue={value}
-              step={0.1}
-              onValueChange={setValue}
+              defaultValue={[value]}
+              step={0.01}
+              onValueChange={handleSliderChange}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               aria-label="Top P"
             />

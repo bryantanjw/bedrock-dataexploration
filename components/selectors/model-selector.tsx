@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import * as z from "zod";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { PopoverProps } from "@radix-ui/react-popover";
 
@@ -27,18 +28,25 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { Model, ModelType } from "../data/models";
+import { Model, models, types } from "@/data/models";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import { UseFormReturn } from "react-hook-form";
+import { formSchema } from "@/lib/form-schema";
 
 interface ModelSelectorProps extends PopoverProps {
-  types: readonly ModelType[];
-  models: Model[];
+  form: UseFormReturn<z.infer<typeof formSchema>>;
 }
 
-export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
+export function ModelSelector({ form, ...props }: ModelSelectorProps) {
   const [open, setOpen] = React.useState(false);
   const [selectedModel, setSelectedModel] = React.useState<Model>(models[0]);
   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0]);
+
+  const handleModelSelect = (model: Model) => {
+    setSelectedModel(model);
+    form.setValue("model", model.id);
+    setOpen(false);
+  };
 
   return (
     <div className="grid gap-2">
@@ -99,14 +107,11 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
                         .filter((model) => model.type === type)
                         .map((model) => (
                           <ModelItem
-                            key={model.id}
+                            key={model.name}
                             model={model}
-                            isSelected={selectedModel?.id === model.id}
+                            isSelected={selectedModel?.name === model.name}
                             onPeek={(model) => setPeekedModel(model)}
-                            onSelect={() => {
-                              setSelectedModel(model);
-                              setOpen(false);
-                            }}
+                            onSelect={() => handleModelSelect(model)}
                           />
                         ))}
                     </CommandGroup>
@@ -143,7 +148,7 @@ function ModelItem({ model, isSelected, onSelect, onPeek }: ModelItemProps) {
 
   return (
     <CommandItem
-      key={model.id}
+      key={model.name}
       onSelect={onSelect}
       ref={ref}
       className="aria-selected:bg-primary aria-selected:text-primary-foreground"

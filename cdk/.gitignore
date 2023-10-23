@@ -1,0 +1,13 @@
+bin/**/*.js
+lib/**/*.js
+test/**/*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# Downloaded private preview artefacts
+lib/bedrock-sdk/
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
