@@ -2,6 +2,8 @@
 
 This is an application that translates natural language queries into data exploration queries for Amazon Neptune, Amazon RDS, and Amazon Athena. It leverages Amazon Bedrock for the translation process, allowing users to choose from a variety of Bedrock models -- including Claude v2 by Anthropic and Titan by AWS.
 
+The main logic for query translation is located in `lib/user-query-execution.ts`. The API endpoint for executing queries is defined in `app/api/explore/route.ts`.
+
 ## Architecture Diagram
 
 ![Architecture Diagram](./arch.png)
@@ -11,8 +13,6 @@ This is an application that translates natural language queries into data explor
 To get started, you need to run the CloudFormation stack. This will set up the necessary AWS resources for the application.
 
 ### Pre-requisites
-
-To set up this sample, you'll need:
 
 - Installed [NodeJS v18+](https://nodejs.org/en/download)
 - To be (AWS CLI) logged in to an AWS Account that's been allow-listed for the limited preview of Amazon Bedrock
@@ -24,7 +24,7 @@ I recommend using the provided CDK solution to automatically deploy and configur
 - `npm install` to install dependencies of the solution
 - `npx cdk bootstrap` if you haven't already [bootstrapped](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html) your target AWS environment for CDK deployments
 - `npx cdk deploy`
-  - This will attempt to download the Bedrock preview SDK (so you must already be logged in to your target allow-listed AWS account) and compile the Java application locally (so you must have Java installed) before running the actual CDK synth/deployment.
+  - This will attempt to download the Bedrock preview SDK (so you must already be logged in to your target allow-listed AWS account) before running the actual CDK synth/deployment.
 - Check in CloudWatch ([as described here](https://catalog.us-east-1.prod.workshops.aws/workshops/2ae99bf2-10df-444f-a21f-8ad0537a9bdd/en-US/appendix)) that your Neptune data is fully copied (which may take some additional time after the main stack deployment is finished).
 
 That should be it!
@@ -61,28 +61,24 @@ Here is a brief description of each environment variable:
 
 - `AWS_REGION`: The AWS region where your resources are located.
 
-- `DYNAMODB_TABLE_NAME`: The name of your DynamoDB table.
+- `DYNAMODB_TABLE_NAME`: The name of your DynamoDB table (that points to all 3 sample databases).
 
-Once the environment variables are set, you can start the application by running the development server:
+Once the environment variables are set, you can start the application by navigating back to the root directory and running the development server:
 
 ```bash
 
-npm run  dev
+cd ..
 
-# or
+bun i
+bun dev
 
-yarn dev
+#or
 
-# or
-
-pnpm dev
+npm i
+npm run dev
 
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. You can start exploring data by entering a natural language query.
-
-## Learn More
-
-The main logic for query translation is located in `lib/user-query-execution.ts`. The API endpoint for executing queries is defined in `app/api/explore/route.ts`.
 
 Your feedback and contributions are welcome!
