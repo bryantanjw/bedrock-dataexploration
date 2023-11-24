@@ -51,13 +51,13 @@ nano .env
 
 ```
 
-Here is a brief description of each environment variable:
+Here are the environment variables required:
 
-- `AWS_ACCESS_KEY_ID`: Your AWS access key ID.
+- `AWS_ACCESS_KEY_ID`.
 
-- `AWS_SECRET_ACCESS_KEY`: Your AWS secret access key.
+- `AWS_SECRET_ACCESS_KEY`.
 
-- `AWS_SESSION_TOKEN`: Your AWS session token.
+- `AWS_SESSION_TOKEN`: Optional if you're using an AWS IAM user.
 
 - `AWS_REGION`: The AWS region where your resources are located.
 
@@ -72,7 +72,7 @@ cd ..
 bun i
 bun dev
 
-#or
+# or
 
 npm i
 npm run dev
